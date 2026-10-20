@@ -8,16 +8,16 @@ project:
   owner: "Recipe Intelligence technical specialist chat"
 
 status: "active"
-phase: "agent-readiness-audit"
+phase: "social-acquisition-spike"
 
 current_gate: >
-  Resolver Service v1 is specified and the post-pilot structural-base model is now
-  reflected in live recipe data. Sixteen promoted recipes that still carried a
-  historical candidate_data.base_component now have canonical recipe_concepts with
-  role=main_component. The next database hardening gate is evidence idempotency:
-  design and apply a reviewed evidence_fingerprint uniqueness migration before
-  parallel resolver workers. The next acquisition gate remains the dedicated
-  Instagram/Facebook social-adapter spike.
+  Resolver Service v1 is specified. The post-pilot main_component backfill is live
+  and the evidence fingerprint database hardening gate has now been completed:
+  recipe_inbox_evidence has an automatically computed SHA-256 evidence_fingerprint,
+  NOT NULL enforcement, and a valid unique index. All 44 existing evidence rows
+  remain unique; duplicate insert and distinct insert behavior were verified in a
+  rollback-only test. RLS/grants are unchanged and Security Advisor reports zero
+  lints. The next active gate is the Instagram/Facebook social-acquisition spike.
 
 current_state: >
   Supabase is ACTIVE_HEALTHY. The Aaron & Claire Agent Contract v1 pilot contains
@@ -71,16 +71,21 @@ current_state: >
   Ryža/Udon/Rezance use importance=supporting; Korean Fire Noodles remains primary
   because it defines those recipe hacks. New Ryža, Udon, and Rezance component
   concepts were created; historical candidate_data.base_component values were kept
-  for audit provenance. Fresh live concept count is 74. Pilot candidate
+  for audit provenance. Fresh live concept count is 74. On 2026-10-20 the
+  approved evidence fingerprint migration was applied as Supabase migration
+  20261020082326 and merged through GitHub PR #15. The existing 44 evidence rows
+  were retained and all received unique SHA-256 fingerprints. A private-schema
+  trigger computes the fingerprint on INSERT/UPDATE, and a unique index enforces
+  idempotency; there is no autonomous Resolver runtime yet. Pilot candidate
   statuses are 19 promoted, 4 duplicate, and 2 needs_review; the two remaining
   needs_review rows are the intentional Miso Ramen and 2024 Gochujang Noodles holds.
 
 exact_next_action: >
-  Implement the next database-hardening step for Resolver Service v1: design a
-  reviewed evidence_fingerprint strategy for recipe_inbox_evidence, add DB-level
-  uniqueness suitable for retry/concurrency safety, and verify grants/RLS/security
-  after the migration. After that, run the Instagram/Facebook social-acquisition
-  spike and select the social adapter strategy before Resolver runtime implementation.
+  Run the Instagram/Facebook social-acquisition spike on real public Reel/post
+  URLs. Compare legitimate Bright Data/free-tier access with alternatives, test
+  caption/creator metadata and transcript availability without sharing personal
+  social login credentials, record acquisition and provider limitations, and
+  select the social adapter approach before implementing Resolver Service runtime.
 
 blockers:
   - "No current Supabase availability or architecture blocker."
@@ -136,6 +141,7 @@ important_open_loops:
   - "Run deterministic Promotion Executor only for approved dispositions."
   - "Resolve or hold the 2024 Gochujang Noodles identity safely."
   - "Implement the approved Agent Contract v1.1 boundaries before expanding the channel crawl."
+  - "Implement Resolver Service v1 conflict-safe evidence reuse using the new DB-enforced evidence_fingerprint; the DB safeguard alone does not implement an autonomous worker."
   - >
       Decide whether a normalized Creator entity is warranted after this pilot;
       current source/content-collection provenance remains sufficient so far.
@@ -148,16 +154,15 @@ important_open_loops:
 portfolio:
   milestone: true
   signal: >
-    Agent Contract v1.1 is now approved and merged as the implementation
-    specification for guarded autonomy. Live invariants show no duplicate inbox
-    source identities, no duplicate candidate keys, no promoted candidate without a
-    recipe/source link, no partial source without an explicit error, no
-    possible_duplicate or validation-needs-review candidate promoted, and no
-    duplicate disposition without a matched recipe. The authoritative docs now
-    encode the Resolver Service boundary, concept-approval authority, main_component
-    modeling, source-intent policy, and review-policy-based promotion authority.
-    The next value step is implementation design for Resolver Service v1 and the
-    deterministic Promotion Executor, not another manual creator batch.
+    Agent Contract v1.1 and Resolver Service v1 are approved implementation
+    specifications. Structural bases for 16 pilot recipes were normalized into
+    main_component concepts. The live evidence table now has a PostgreSQL-computed
+    SHA-256 fingerprint with NOT NULL and a unique index, giving database-level
+    duplicate protection without requiring clients to supply a fingerprint. All
+    44 preexisting rows were retained and verified unique; the duplicate/retry
+    behavior passed a rollback-only test. Existing grants/RLS were preserved and
+    Supabase Security Advisor returned zero lints. Resolver workers remain planned.
+    Next is the Instagram/Facebook social-acquisition spike.
 
 stale_or_unknown:
   - >
@@ -201,7 +206,11 @@ verification:
     - "Authoritative docs updated: docs/agent-contract-v1.md, docs/ingestion-contract-v1.md, and docs/database-architecture.md."
     - "PR #14 Specify Resolver Service v1 merged to main as squash commit f187cb46f4db8cd46342517968ff2d05b1a7c8f6."
     - "docs/resolver-service-v1.md now defines resolve_inbox_item(inbox_id), adapter routing, normalized evidence, retries, caching, security, observability, acceptance tests, and a reserved social adapter."
-    - "Live schema verification found unique recipe_inbox.source_ref and unique recipe_candidates(inbox_id,candidate_index), but no DB-level unique evidence fingerprint; concurrency hardening is planned before parallel resolver workers."
+    - "Live schema verification found unique recipe_inbox.source_ref and unique recipe_candidates(inbox_id,candidate_index)."
+    - "Evidence fingerprint migration applied to live Supabase as 20261020082326: trigger-generated SHA-256, NOT NULL constraint, and valid unique index on recipe_inbox_evidence.evidence_fingerprint."
+    - "Post-migration: 44/44 evidence rows have distinct 64-character fingerprints; rollback-only duplicate insertion was skipped and distinct insertion succeeded, leaving 44 rows."
+    - "Post-migration: recipe_inbox_evidence RLS remains enabled; authenticated/service_role table grants remained unchanged, anon has no grants; Security Advisor reported 0 lints."
+    - "GitHub PR #15 Add DB-enforced evidence fingerprints merged as squash commit bd5c1827c3dc4f9ccb05665f3efd17afe0660ba7; docs/resolver-service-v1.md and docs/database-architecture.md updated."
     - "Supabase project restored from INACTIVE to ACTIVE_HEALTHY on 2026-10-20 before the backfill."
     - "Structural-base backfill completed transactionally for 16 promoted recipes: 6 Ryža, 3 Udon, 1 Rezance, 6 Korean Fire Noodles main_component links."
     - "New Ryža, Udon, and Rezance culinary concepts created as component concepts; total culinary concept count is now 74."
