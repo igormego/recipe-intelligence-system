@@ -73,6 +73,8 @@ Preferences affect prioritization and recommendation behavior without deleting o
 
 Together with `recipe_inbox`, these tables separate acquisition from interpretation and promotion. One inbox source may yield zero, one, or many candidates.
 
+As of 2026-10-20, `recipe_inbox_evidence` also has a database-generated SHA-256 `evidence_fingerprint`, an enforced NOT NULL column and a unique index. A BEFORE INSERT/UPDATE trigger in the private schema calculates the fingerprint automatically from inbox/provenance/type/locator/resolver and normalized evidence text (or JSONB payload when text is absent). This provides DB-level retry/concurrency protection without introducing a new public table, changing existing grants, or changing RLS. See [Resolver Service v1](resolver-service-v1.md) and `database/migrations/20261020_add_recipe_inbox_evidence_fingerprint.sql`.
+
 The operational path is:
 
 ```text
