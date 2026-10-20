@@ -11,13 +11,13 @@ status: "active"
 phase: "agent-readiness-audit"
 
 current_gate: >
-  Resolver Service v1 is now specified and merged as the implementation contract for
-  acquisition. The domain interface is resolve_inbox_item(inbox_id); provider choice,
-  credentials, retries, caching, and evidence normalization remain inside the service.
-  Firecrawl is the generic-web backend, YouTube/source-specific resolution is a
-  dedicated adapter path, and a social adapter boundary is reserved without yet
-  selecting an Instagram/Facebook acquisition implementation. The next gate is a
-  focused Instagram/Facebook acquisition spike followed by implementation sequencing.
+  Resolver Service v1 is specified and the post-pilot structural-base model is now
+  reflected in live recipe data. Sixteen promoted recipes that still carried a
+  historical candidate_data.base_component now have canonical recipe_concepts with
+  role=main_component. The next database hardening gate is evidence idempotency:
+  design and apply a reviewed evidence_fingerprint uniqueness migration before
+  parallel resolver workers. The next acquisition gate remains the dedicated
+  Instagram/Facebook social-adapter spike.
 
 current_state: >
   Supabase is ACTIVE_HEALTHY. The Aaron & Claire Agent Contract v1 pilot contains
@@ -64,19 +64,23 @@ current_state: >
   and preference_status=adaptable because seafood is present in the full version
   but the creator explicitly supports a simpler core without the extra ingredients.
   New Chunjang and Morské plody concepts were created. All clean pilot candidates
-  are now dispositioned. Fresh live counts are 269 recipes, 166 sources, 203 inbox
-  items, 42 candidates, 44 evidence rows, and 71 culinary concepts. Pilot candidate
+  are now dispositioned. On 2026-10-20 the previously sleeping Supabase project was
+  restored to ACTIVE_HEALTHY and the approved structural-base backfill was applied.
+  Sixteen promoted recipes now have canonical recipe_concepts.role=main_component:
+  Ryža on six recipes, Udon on three, Rezance on one, and Korean Fire Noodles on six.
+  Ryža/Udon/Rezance use importance=supporting; Korean Fire Noodles remains primary
+  because it defines those recipe hacks. New Ryža, Udon, and Rezance component
+  concepts were created; historical candidate_data.base_component values were kept
+  for audit provenance. Fresh live concept count is 74. Pilot candidate
   statuses are 19 promoted, 4 duplicate, and 2 needs_review; the two remaining
   needs_review rows are the intentional Miso Ramen and 2024 Gochujang Noodles holds.
 
 exact_next_action: >
-  Run an Instagram/Facebook social-acquisition spike against current platform/API
-  constraints and practical provider/browser options. Determine which legitimate
-  path can resolve direct public Reel/post submissions into normalized evidence,
-  what authentication/session handling is required, whether creator-owned metadata,
-  caption text, media/audio or linked pages can be retrieved reliably, and what
-  fallback/manual-context behavior is needed. Select the social adapter strategy
-  before implementing Resolver Service v1 runtime.
+  Implement the next database-hardening step for Resolver Service v1: design a
+  reviewed evidence_fingerprint strategy for recipe_inbox_evidence, add DB-level
+  uniqueness suitable for retry/concurrency safety, and verify grants/RLS/security
+  after the migration. After that, run the Instagram/Facebook social-acquisition
+  spike and select the social adapter strategy before Resolver runtime implementation.
 
 blockers:
   - "No current Supabase availability or architecture blocker."
@@ -117,13 +121,6 @@ important_open_loops:
       future source-to-concept relationship such as teaches/demonstrates separately
       from recipe_concepts uses-technique links.
   - >
-      Define the future Resolver Service/tool boundary so autonomous agents call a
-      narrow resolve_source interface while Firecrawl remains an infrastructure
-      backend rather than a broadly exposed agent credential/tool.
-  - >
-      Post-pilot, decide whether provisional base_component should become a
-      first-class lookup/column or be represented through culinary concepts.
-  - >
       Audit historical main_ingredient values under the new concept-first model
       and migrate selectively into primary recipe_concepts where useful; do not
       bulk-clear or rewrite the legacy field without recipe-level review.
@@ -140,14 +137,8 @@ important_open_loops:
   - "Resolve or hold the 2024 Gochujang Noodles identity safely."
   - "Implement the approved Agent Contract v1.1 boundaries before expanding the channel crawl."
   - >
-      Measure which roles proved mechanical vs which required strong reasoning or
-      human review, including partial-source, manual-context, and Firecrawl-resolved cases.
-  - >
       Decide whether a normalized Creator entity is warranted after this pilot;
       current source/content-collection provenance remains sufficient so far.
-  - >
-      Decide whether culinary-concept creation can later be delegated safely or
-      should remain explicit-review during early agent operation.
   - "Review remaining social inbox items later."
   - "Recover unresolved Facebook saves where possible."
   - "Import and deduplicate Hárok5 later."
@@ -188,7 +179,7 @@ stale_or_unknown:
       Exact identity of the 2024 Gochujang Noodles source remains unresolved.
 
 verification:
-  last_verified: "2026-10-12"
+  last_verified: "2026-10-20"
   sources:
     - "Live Supabase queried after Firecrawl-resolved Garlic Butter Rice ingestion."
     - "Fresh live counts after Jaengban Jjajang promotion: 269 recipes, 166 sources, 203 inbox items, 42 candidates, 44 evidence rows, 71 culinary concepts."
@@ -211,6 +202,11 @@ verification:
     - "PR #14 Specify Resolver Service v1 merged to main as squash commit f187cb46f4db8cd46342517968ff2d05b1a7c8f6."
     - "docs/resolver-service-v1.md now defines resolve_inbox_item(inbox_id), adapter routing, normalized evidence, retries, caching, security, observability, acceptance tests, and a reserved social adapter."
     - "Live schema verification found unique recipe_inbox.source_ref and unique recipe_candidates(inbox_id,candidate_index), but no DB-level unique evidence fingerprint; concurrency hardening is planned before parallel resolver workers."
+    - "Supabase project restored from INACTIVE to ACTIVE_HEALTHY on 2026-10-20 before the backfill."
+    - "Structural-base backfill completed transactionally for 16 promoted recipes: 6 Ryža, 3 Udon, 1 Rezance, 6 Korean Fire Noodles main_component links."
+    - "New Ryža, Udon, and Rezance culinary concepts created as component concepts; total culinary concept count is now 74."
+    - "Ryža/Udon/Rezance main_component links use importance=supporting; Korean Fire Noodles links were reclassified from component to main_component while preserving importance=primary."
+    - "Historical candidate_data.base_component values were intentionally retained as extraction/audit provenance."
     - "Pilot new-discovery outcomes are 19 promoted, 4 duplicate, and 2 intentional holds; the previously known Ssamjang control contributes 3 additional promoted candidates."
     - "Audit verdict: Agent Contract v1 is suitable for guarded autonomy, not unrestricted bulk auto-promotion."
 
