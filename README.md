@@ -46,6 +46,7 @@ Start with:
 - [Agent contract v1](docs/agent-contract-v1.md)
 - [Database access model](docs/database-access-model.md)
 - [Historical baseline and migration policy](docs/database-baseline-and-migrations.md)
+- [Manual cooking chat recovery handoff](docs/manual-cooking-chat-handoff.md)
 
 The 2026-08-03 SQL bootstrap under `database/bootstrap/` is an immutable **historical baseline**, not a representation of the current 33-table live schema. Do not replay it against the existing Supabase project.
 
