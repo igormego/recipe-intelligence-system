@@ -7,38 +7,41 @@ project:
   owner: "Core Project Brain rollup"
 
 status: "active"
-phase: "agent-readiness-audit"
+phase: "social-acquisition-spike"
 
 current_gate: >
-  Agent Contract v1.1 and Resolver Service v1 are specified and merged. The next
-  project gate is a focused Instagram/Facebook social-acquisition spike to choose
-  a legitimate social adapter strategy before implementing Resolver Service v1
-  runtime. The reserved Product & Intelligence workstream remains unassigned and
-  does not block the active technical workstream.
+  Agent Contract v1.1 and Resolver Service v1 remain the approved guarded-autonomy
+  contracts. Structural main-component normalization and DB-enforced evidence
+  fingerprint uniqueness are live and verified. The active gate is now social
+  acquisition: select and acceptance-test a legitimate Instagram/Facebook
+  acquisition path before implementing Resolver Service runtime.
 
 current_state: >
-  Data & Platform Architecture is the single active specialist-owned workstream.
-  The creator-scale Aaron & Claire pilot has dispositioned all clean candidates:
-  19 promoted, 4 duplicate and 2 intentional needs_review holds. Live counts at
-  the latest verification are 269 recipes, 166 sources, 203 inbox items,
-  42 candidates, 44 evidence rows and 71 culinary concepts. Agent Contract v1.1
-  now defines guarded-autonomy boundaries, and Resolver Service v1 defines the
-  acquisition interface resolve_inbox_item(inbox_id), adapter routing, evidence
-  normalization, retries, caching, security and observability. Firecrawl is
-  verified in supervised generic-web resolution but is not yet an autonomous
-  Resolver runtime. Product & Intelligence remains a future reserved boundary,
-  not an active dependency.
+  Data & Platform Architecture remains the single active specialist-owned
+  workstream. Supabase is ACTIVE_HEALTHY. The creator pilot is dispositioned at
+  19 promoted, 4 duplicate and 2 intentional needs_review holds. Sixteen promoted
+  recipes now use canonical main_component concept links and the culinary concept
+  count is 74. recipe_inbox_evidence now has a database-generated SHA-256
+  evidence_fingerprint with NOT NULL and unique-index enforcement; all 44
+  pre-existing evidence rows were preserved and duplicate/distinct behavior was
+  verified transactionally without changing RLS/grants. The social spike proved
+  Firecrawl direct scraping unsupported for Instagram and Facebook and found no
+  indexed match for three sampled Instagram Reels. Bright Data and Apify are
+  candidates but have not been project-accepted. manual_context remains the
+  explicit fallback. A manual cooking-chat recovery handoff was also added to the
+  repo as a context artifact; it does not create a new active workstream.
 
 exact_next_action: >
-  Run the Instagram/Facebook social-acquisition spike against current platform,
-  API and practical provider/browser constraints. Select the social adapter
-  strategy and fallback/manual-context behavior before implementing Resolver
-  Service v1 runtime.
+  Run a bounded authorized live provider test using Bright Data and/or Apify on
+  public Reel/post URLs. Verify source identity, creator/caption metadata,
+  transcript availability, provenance, cost, permissions and failure behavior
+  before selecting the social adapter. Do not use personal social-login
+  credentials.
 
 blockers:
-  - "No current Supabase availability or architecture blocker."
-  - "Miso Ramen remains an intentional hold for a dedicated ramen-domain review."
-  - "The partial 2024 Gochujang Noodles source remains an intentional identity-resolution hold; neither hold blocks the current social-acquisition spike."
+  - "No current Supabase availability or schema blocker."
+  - "Instagram/Facebook production acquisition provider remains unselected and unaccepted."
+  - "Miso Ramen and the partial 2024 Gochujang Noodles source remain intentional non-blocking review holds."
 
 workstreams:
   - id: "data-platform-architecture"
@@ -59,17 +62,18 @@ rollup_policy:
 portfolio:
   milestone: true
   signal: >
-    Recipe Intelligence now demonstrates a guarded human-in-the-loop ingestion
-    architecture with a real creator-scale pilot, normalized evidence/candidate
-    flow, concept-first semantics, explicit ambiguity handling, Agent Contract
-    v1.1 and a specified Resolver Service boundary. The next portfolio value comes
-    from implementing and accepting the resolver runtime, not another manual batch.
+    Recipe Intelligence now combines guarded human-in-the-loop ingestion with
+    DB-enforced evidence idempotency, concept-first semantic modeling, a real
+    creator-scale pilot and an explicit resolver boundary. The next meaningful
+    milestone is a legitimate social adapter and accepted Resolver runtime, not
+    further manual batch expansion.
 
 verification:
-  last_verified: "2026-10-12"
+  last_verified: "2026-10-20"
   sources:
     - ".project/workstreams/data-platform-architecture.yaml"
     - ".project/workstreams/product-intelligence.yaml"
+    - "Repository manual cooking-chat recovery handoff commits on 2026-10-22 (context artifact only)"
 
 sync:
   status: "synced"
