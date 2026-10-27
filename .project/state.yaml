@@ -43,6 +43,34 @@ blockers:
   - "Instagram/Facebook production acquisition provider remains unselected and unaccepted."
   - "Miso Ramen and the partial 2024 Gochujang Noodles source remain intentional non-blocking review holds."
 
+dependencies:
+  - component: "Supabase Recipe Intelligence schema and evidence controls"
+    dependency: >
+      The guarded resolver design relies on the existing live recipe/inbox/
+      candidate model, concept-first semantics and database-enforced evidence
+      fingerprint uniqueness. These controls are verified foundations, not
+      evidence of an autonomous resolver runtime.
+  - component: "Social source acquisition provider"
+    dependency: >
+      Instagram/Facebook acquisition requires an authorized provider with
+      verifiable creator/source identity, provenance, acceptable cost and failure
+      handling. Firecrawl direct scraping is unsupported for those sites;
+      Bright Data and Apify remain unaccepted candidates, with manual_context
+      as the explicit fallback.
+  - project: "Personal AI Brain / Agent Platform"
+    dependency: >
+      Reusable execution, scheduling and permission infrastructure may later
+      host an approved Recipe resolver worker. The current supervised pilot and
+      social-provider decision do not depend on that future runtime.
+
+important_open_loops:
+  - "Run a bounded authorized Bright Data/Apify public-URL acquisition test before selecting any Instagram/Facebook adapter; do not use personal social login credentials."
+  - "Implement Resolver Service v1 runtime only after the adapter strategy and explicit guarded Agent Contract v1.1 boundaries are accepted."
+  - "Keep Miso Ramen on hold for a dedicated ramen-domain review."
+  - "Keep the partial 2024 Gochujang Noodles source on hold pending safe identity resolution against the promoted 2022 recipe."
+  - "Review historical legacy main_ingredient and structural component assignments selectively; do not bulk rewrite without recipe-level evidence."
+  - "Leave broader creator normalization, pantry, review UI and other post-pilot expansions for later domain-owned decisions."
+
 workstreams:
   - id: "data-platform-architecture"
     path: ".project/workstreams/data-platform-architecture.yaml"
